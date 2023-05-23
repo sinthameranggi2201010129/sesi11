@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan 2 JSON</title>
+</head>
+<body>
+    <div id="tampilkan"></div>
+
+
+
+
+    <script>
+        const bacadata = new XMLHttpRequest();
+        bacadata.open("GET","http://localhost/sesi11/latihan02.php");
+        bacadata.send();
+
+        bacadata.onload = function(){
+            const data = JSON.parse(this.responseText);
+            console.log(data[2].NAMA);
+
+            let tx = '<table><tr><td>#</td><td>NAMA</td><td>tanggal lahir</td><td>NIM</td><td>jenis kelamin</td><td>alamat</td></tr>';
+            let no = 0;
+            for(let i=0;i<data.length;i++){
+                let JKEL = (data[i].JKEL=="L")?"laki-laki":"perempuan";
+                no++;
+                tx +='<tr>'
+                tx +='    <td>'+no+'</td>'
+                tx +='    <td>'+data[i].NAMA+'</td>'
+                tx +='    <td>'+data[i].TGL_LAHIR+'</td>'
+                tx +='    <td>'+data[i].NIM+'</td>'
+                tx +='    <td>'+JKEL+'</td>'
+                tx +='    <td>'+data[i].ALAMAT+'</td>'
+                tx +='</tr>';
+                
+            }
+            tx +='</table>';
+
+
+            document.getElementById("tampilkan").innerHTML=tx;
+
+        }
+    </script>
+</body>
+</html>

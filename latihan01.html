@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan 1 JSON</title>
+</head>
+<body>
+    
+    nama : <span id="txNAMA"></span> <br>
+    tanggal lahir : <span id="txTGL_LAHIR"></span> <br>
+    NIM : <span id="txNIM"></span><br>
+    jenis kelamin : <span id="txJKEL"></span><br>
+    alamat : <span id="txALAMAT"></span><br>
+
+
+    <script>
+        const bacadata = new XMLHttpRequest();
+        bacadata.open("GET","http://localhost/sesi11/latihan01.php");
+        bacadata.send();
+
+        bacadata.onload = function(){
+            const data = JSON.parse(this.responseText);
+            let jkel = "laki-laki";
+            if(data.JKEL=="P"){
+                jkel = "perempuan";
+            }
+            console.log(data);
+            document.getElementById("txNAMA").innerHTML=data.NAMA
+            document.getElementById("txTGL_LAHIR").innerHTML=data.TGL_LAHIR 
+            document.getElementById("txNIM").innerHTML=data.NIM
+            document.getElementById("txJKEL").innerHTML=jkel
+            document.getElementById("txALAMAT").innerHTML=data.ALAMAT
+
+        }
+    </script>
+</body>
+</html>
